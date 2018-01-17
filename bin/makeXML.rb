@@ -29,6 +29,8 @@ module IFofXML
       xmlFile.puts(line) if isRecSetting == true
       isRecSetting = false if line.include?("</RecSetting>")
     }
+    
+    xmlFile.close
 end
 
 
@@ -50,8 +52,6 @@ class XMLMaker
 
   # make the xmlfile of one log
   def make_XML(logPath, objXMLPath)
-    puts "make xml in #{objXMLPath}"
-    puts logPath
     traverse_logDir(logPath, objXMLPath)
   end
 end

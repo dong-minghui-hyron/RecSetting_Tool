@@ -9,10 +9,13 @@ require 'rexml/document'
 require 'pathname'
 include REXML
 
-module IFofCSV
-  @title =" ," 
-  @isFirst = true
-  
+class XML2CSV
+  def initialize
+    @title = ' ,'
+    @isFirst = true
+    @recSetting = ''
+  end
+
   def make_title(e)
     if e.elements.size == 0
       @title = @title + e.name + ","
@@ -68,16 +71,11 @@ module IFofCSV
     end
   end
 
-end
-
-class XML2CSV
-  include IFofCSV
-
   def make_CSV(objPath, xmlPath)
     objName = File.basename(objPath) + "_recSetting.csv"
     csvfile = File.open(objPath + "/" + objName, 'w+')
-    puts "make #{objPath}/#{objName}"
     traverse_xmlDir(xmlPath, csvfile)
+    csvfile.close
   end
 end
 
